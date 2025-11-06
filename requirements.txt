@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+chromadb
+sentence-transformers
+pymupdf
+pytesseract
+Pillow
+numpy
+python-multipart
+requests
+pydantic
