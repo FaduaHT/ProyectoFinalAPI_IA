@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+chromadb
+sentence-transformers
+pymupdf
+pytesseract
+Pillow
+numpy
+python-multipart
+requests
+pydantic
+groq>=0.11.0
+python-dotenv>=1.0.1
+
