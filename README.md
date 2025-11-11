@@ -26,7 +26,7 @@ Toda la carpeta:
    Get-ChildItem ./docs -Filter *.pdf | ForEach-Object {
     $out = "./out/$($_.BaseName)_chunks.jsonl"
    python PdfProcessor.py $_.FullName --size 1200 --overlap 200 --out $out }
-
+```
 
 Coje los Chunks, hace el embedding: LOS guarda en Chroma
 ```text
