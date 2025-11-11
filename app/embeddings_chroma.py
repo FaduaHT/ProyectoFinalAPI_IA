@@ -149,20 +149,16 @@ class ChromaIndex:
         res = self.collection.query(
             query_embeddings=qv,
             n_results=topk,
-            include=["documents", "distances", "ids"],
+            include=["documents", "distances"],  # ← SIN "ids"
         )
-        # Chroma devuelve por lotes; tomamos el primero
+        # Chroma devuelve ids aunque no estén en include
         docs = res.get("documents", [[]])[0]
         dists = res.get("distances", [[]])[0]
         ids = res.get("ids", [[]])[0]
 
-        # En "cosine" Chroma devuelve distancia; convertimos a similitud 1 - d
         results: List[Tuple[float, str, str]] = []
         for doc_id, doc, dist in zip(ids, docs, dists):
-            if self.metric == "cosine":
-                score = 1.0 - float(dist)
-            else:
-                score = float(-dist)  # orden consistente
+            score = 1.0 - float(dist) if self.metric == "cosine" else float(-dist)
             results.append((score, str(doc_id), doc))
         return results
 
