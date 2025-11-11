@@ -20,7 +20,7 @@ Lee el PDF y lo parte en chunks y lo guarda:
 Un pdf en concreto:
 ```text
    python PdfProcessor.py ./docs/ejemplo.pdf --size 1200 --overlap 200 --out ./out/chunks.jsonl 
-
+```
 Toda la carpeta:
 ```text 
    Get-ChildItem ./docs -Filter *.pdf | ForEach-Object {
@@ -31,7 +31,7 @@ Toda la carpeta:
 Coje los Chunks, hace el embedding: LOS guarda en Chroma
 ```text
     python embeddings_chroma.py build --chunks ./out/chunks.jsonl  --outdir ./chroma_store  --collection rag_chunks --model paraphrase-multilingual-MiniLM-L12-v2 
-
+```
 Toda la carpeta:
 ```text
 Get-ChildItem ./out -Filter *.jsonl | ForEach-Object {
@@ -42,7 +42,7 @@ Get-ChildItem ./out -Filter *.jsonl | ForEach-Object {
     --collection rag_chunks `
     --model paraphrase-multilingual-MiniLM-L12-v2
 }
-
+```
 
 ### 🟩 1) Ingesta de Documentos → `POST /documents`
 
@@ -114,3 +114,4 @@ Get-ChildItem ./out -Filter *.jsonl | ForEach-Object {
 🤖 LLM (Groq / Mistral / Ollama)
    ↓
 ✅ Respuesta + Citas
+```
