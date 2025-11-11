@@ -5,6 +5,10 @@
 ## 🎯 Objetivo
 Desarrollar un chatbot capaz de responder preguntas basadas únicamente en un conjunto de documentos propios (PDF o TXT), utilizando técnicas de **búsqueda semántica** y **modelos de lenguaje (LLM)**.
 
+
+## ⚙️ Funcionamiento General
+
+El sistema se divide en **dos fases principales** y dos endpoints:
 ## Librerias que he ido descargando:  
 pymupdf tiktoken
 sentence-transformers faiss-cpu
@@ -13,17 +17,32 @@ chromadb sentence-transformers
 
 ## COMANDOS 
 Lee el PDF y lo parte en chunks y lo guarda:
- python PdfProcessor.py ./docs/ejemplo.pdf --size 1200 --overlap 200 --out ./out/chunks.jsonl 
+Un pdf en concreto:
+```text
+   python PdfProcessor.py ./docs/ejemplo.pdf --size 1200 --overlap 200 --out ./out/chunks.jsonl 
 
-Coje los Chunks, hace el embedding: LOS guarda en faiss cuando deberia guardarlo en faiss
-    python embeddings_faiss.py build \ --chunks ./out/chunks.jsonl \  --outdir ./faiss \  --model paraphrase-multilingual-MiniLM-L12-v2
+Toda la carpeta:
+```text 
+   Get-ChildItem ./docs -Filter *.pdf | ForEach-Object {
+    $out = "./out/$($_.BaseName)_chunks.jsonl"
+   python PdfProcessor.py $_.FullName --size 1200 --overlap 200 --out $out }
 
-Coje los Chunks, hace el embedding: LOS guarda en faiss cuando deberia guardarlo en Chroma
+
+Coje los Chunks, hace el embedding: LOS guarda en Chroma
+```text
     python embeddings_chroma.py build --chunks ./out/chunks.jsonl  --outdir ./chroma_store  --collection rag_chunks --model paraphrase-multilingual-MiniLM-L12-v2 
 
-## ⚙️ Funcionamiento General
+Toda la carpeta:
+```text
+Get-ChildItem ./out -Filter *.jsonl | ForEach-Object {
+  Write-Host "Indexando $($_.FullName)..."
+  python embeddings_chroma.py build `
+    --chunks $_.FullName `
+    --outdir ./chroma_store `
+    --collection rag_chunks `
+    --model paraphrase-multilingual-MiniLM-L12-v2
+}
 
-El sistema se divide en **dos fases principales** y dos endpoints:
 
 ### 🟩 1) Ingesta de Documentos → `POST /documents`
 

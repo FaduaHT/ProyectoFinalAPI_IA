@@ -25,6 +25,11 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+docs/
+out/
+faiss/
+chroma_store/
+*.ipynb
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
