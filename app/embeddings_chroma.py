@@ -1,7 +1,7 @@
 """
 Embeddings + Chroma (local, sin login)
 
-• Lee `chunks.jsonl` (id, text), genera embeddings con Sentence-Transformers y
+• Lee `chunks` (id, text), genera embeddings con Sentence-Transformers y
   los persiste en una base local de Chroma.
 • Permite consultas top‑k (cosine) desde CLI.
 

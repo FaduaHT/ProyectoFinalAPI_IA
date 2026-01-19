@@ -1,8 +1,8 @@
 import requests
 import streamlit as st
 
-st.set_page_config(page_title="RAG Chroma – Front mínimo", layout="wide")
-st.title("RAG ChatBot (Q&A sobre /answer)")
+st.set_page_config(page_title="RAG ChatBot - Todo sobre IA", layout="wide")
+st.title("RAG ChatBot (Q&A sobre IA)")
 
 with st.sidebar:
     st.header("Ajustes API")
